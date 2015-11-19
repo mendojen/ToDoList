@@ -6,7 +6,7 @@ var session = require('express-session');
 var bodyParser = require('body-parser');
 
 app.use(bodyParser.urlencoded({ extended: false }));
-
+app.use(session({secret:'SuperSecretPassword'}));
 app.use(session({ 
   secret: 'SuperDuperSecret',
   saveUninitialized: true,
