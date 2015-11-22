@@ -23,14 +23,27 @@ app.get('/count',function(req,res){
   res.render('counter', context);
 });
 
+//app.post('/count',function(req,res){
+//  var context = {};
+//  if(req.body.command === "resetCount"){
+//    req.session.count = 0;
+//    req.session.destroy();
+//  } else {
+//    context.err = true;
+//  }
+//  if(req.session){
+//    context.count = req.session.count;
+//  } else {
+//    context.count = 0;
+//  }
+//  req.session.count = context.count + 1;
+//  res.render('counter', context);
+//});
 app.post('/count',function(req,res){
   var context = {};
-  if(req.body.command === "resetCount"){
-    req.session.count = 0;
-    req.session.destroy();
-  } else {
-    context.err = true;
-  }
+  if(req.body.command === "reset"){
+    req.session.count=0;
+  } 
   if(req.session){
     context.count = req.session.count;
   } else {
@@ -39,7 +52,6 @@ app.post('/count',function(req,res){
   req.session.count = context.count + 1;
   res.render('counter', context);
 });
-
 app.use(function(req,res){
   res.status(404);
   res.render('404');
