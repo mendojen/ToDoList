@@ -1,8 +1,13 @@
-{{#unless err}}
+<!--{{#unless err}}
 <h1>Hello! You have visited this page {{count}} times before.</h1>
 <form action="/count" method="post">
 	<input type="submit" name="command" value="resetCount">
 </form>
 {{else}}
 <h1>Invalid submission!</h1>
-{{/unless}}
+{{/unless}}-->
+
+<h1>The page is visited {{count}} times.</h1>
+<form action="/count" method="post">
+    <input type="submit" name="command" value="reset"></input>
+</form>
