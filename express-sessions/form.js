@@ -13,6 +13,7 @@ app.use(express.static('public'));
 app.get('/',function(req,res,next){
   var context = {};
   var zipcode=getelementByID(zip);
+  res.render('form',context);
   request('http://api.openweathermap.org/data/2.5/weather?q='+ zip + '&APPID=' + credentials.owmKey, function(err, response, body){
     if(!err && response.statusCode < 400){
       context.owm = body;
