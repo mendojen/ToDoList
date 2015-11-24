@@ -1,5 +1,9 @@
 <h1>Hello {{name}}! Time to look at the weather!</h1>
 <form action="http://52.25.198.76:3000/zip" method="GET">
   <input type="text" name="zip" id="zipcode">
-  <input type="submit" name="Get weather" value="weather_input">
+  <input type="submit" name="weather_zip" value="Get Weather">
+</form>
+<form action="http://52.25.198.76:3000/city" method="GET">
+  <input type="text" name="city" id="city_input">
+  <input type="submit" name="weather_city" value="Get my Weather">
 </form>
