@@ -11,6 +11,7 @@ app.set('port', 3000);
 app.use(express.static('public'));
 
 app.get('/', function (req,res){
+   var context = {};
   res.render('form', context)
 });
 
