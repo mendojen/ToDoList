@@ -10,7 +10,11 @@ app.set('view engine', 'handlebars');
 app.set('port', 3000);
 app.use(express.static('public'));
 
-app.get('/',function(req,res,next){
+app.get('/', function (req,res){
+  res.render('form', context)
+});
+
+app.get('/url',function(req,res,next){
   var context = {};
   request('http://api.openweathermap.org/data/2.5/weather?q='+ req.query.zip + '&APPID=' + credentials.owmKey, function(err, response, body){
     if(!err && response.statusCode < 400){
