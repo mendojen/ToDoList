@@ -53,13 +53,9 @@ app.get('/city',function(req,res,next){
   request('http://api.openweathermap.org/data/2.5/weather?q='+ req.query.city + '&APPID=' + credentials.owmKey, function(err, response, body){
     if(!err && response.statusCode < 400){
       context.owm = body;
-      request({
-        "url":"http://httpbin.org/post",
-        "method":"POST",
-        "headers":{
-          "Content-Type":"application/json"
-        },
-        "body":'{"foo":"bar","number":1}'
+      request('http://api.openweathermap.org/data/2.5/weather?q='+ req.query.city2 + '&APPID=' + credentials.owmKey, function(err, response, body){
+    if(!err && response.statusCode < 400){
+      context.owm = body;
       }, function(err, response, body){
         if(!err && response.statusCode < 400){
           context.httpbin = body;
@@ -71,7 +67,7 @@ app.get('/city',function(req,res,next){
           }
           next(err);
         }
-      });
+      }});
     } else {
       console.log(err);
       if(response){
@@ -82,20 +78,6 @@ app.get('/city',function(req,res,next){
   });
 });
 
-app.get('/get-ex',function(req,res,next){
-  var context = {};
-  request('http://api.openweathermap.org/data/2.5/weather?q=corvallis&APPID=' + credentials.owmKey, function(err, response, body){
-    if(!err && response.statusCode < 400){
-      context.owm = body;
-      res.render('home',context);
-    } else {
-      if(response){
-        console.log(response.statusCode);
-      }
-      next(err);
-    }
-  });
-});
 
 app.use(function(req,res){
   res.status(404);
