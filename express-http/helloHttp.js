@@ -48,6 +48,39 @@ app.get('/zip',function(req,res,next){
     }
   });
 });
+app.get('/city',function(req,res,next){
+  var context = {};
+  request('http://api.openweathermap.org/data/2.5/weather?q='+ req.query.city + '&APPID=' + credentials.owmKey, function(err, response, body){
+    if(!err && response.statusCode < 400){
+      context.owm = body;
+      request({
+        "url":"http://httpbin.org/post",
+        "method":"POST",
+        "headers":{
+          "Content-Type":"application/json"
+        },
+        "body":'{"foo":"bar","number":1}'
+      }, function(err, response, body){
+        if(!err && response.statusCode < 400){
+          context.httpbin = body;
+          res.render('home2',context);
+        }else{
+          console.log(err);
+          if(response){
+            console.log(response.statusCode);
+          }
+          next(err);
+        }
+      });
+    } else {
+      console.log(err);
+      if(response){
+        console.log(response.statusCode);
+      }
+      next(err);
+    }
+  });
+});
 
 app.get('/get-ex',function(req,res,next){
   var context = {};
