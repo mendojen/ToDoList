@@ -53,12 +53,18 @@ app.get('/city',function(req,res,next){
   request('http://api.openweathermap.org/data/2.5/weather?q='+ req.query.city + '&APPID=' + credentials.owmKey, function(err, response, body){
     if(!err && response.statusCode < 400){
       context.owm = body;
-      request(request('http://api.openweathermap.org/data/2.5/weather?q='+ req.query.city2 + '&APPID=' + credentials.owmKey, function(err, response, body){
-		  if(!err && response.statusCode < 400){
-			context.owm2 = body;
+      request({
+        "url":"http://httpbin.org/post",
+        "method":"POST",
+        "headers":{
+          "Content-Type":"application/json"
+        },
+        "body":'{"foo":"bar","number":1}'
+      }, function(err, response, body){
         if(!err && response.statusCode < 400){
-          res.render('home2',context);
-		  }}else{
+          context.httpbin = body;
+          res.render('home',context);
+        }else{
           console.log(err);
           if(response){
             console.log(response.statusCode);
